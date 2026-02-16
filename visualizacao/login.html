@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Login • Empréstimos</title>
+  <link rel="stylesheet" href="./Css/Estilo.css" />
+</head>
+<body class="bg">
+  <main class="center">
+    <div class="card auth">
+      <div class="card-title">Entrar</div>
+      <p class="muted">Use seu email e senha para acessar o sistema.</p>
+
+      <form id="frmLogin" class="form">
+        <div class="field">
+          <label>Email</label>
+          <input class="input" type="email" id="email" placeholder="admin@local" required />
+        </div>
+        <div class="field">
+          <label>Senha</label>
+          <input class="input" type="password" id="senha" placeholder="Admin@123" required />
+        </div>
+
+        <button class="btn" type="submit">Entrar</button>
+        <div class="msg" id="msg"></div>
+      </form>
+
+      <hr class="sep"/>
+      <details>
+        <summary class="muted">Criar conta (opcional)</summary>
+        <form id="frmRegister" class="form">
+          <div class="field">
+            <label>Nome</label>
+            <input class="input" id="rNome" required />
+          </div>
+          <div class="field">
+            <label>Email</label>
+            <input class="input" id="rEmail" type="email" required />
+          </div>
+          <div class="field">
+            <label>Senha</label>
+            <input class="input" id="rSenha" type="password" required />
+          </div>
+          <button class="btn btn-ghost" type="submit">Criar conta</button>
+          <div class="msg" id="rMsg"></div>
+        </form>
+      </details>
+    </div>
+  </main>
+
+  <script src="./JavaScript/Funcionalidade.js"></script>
+</body>
+</html>
