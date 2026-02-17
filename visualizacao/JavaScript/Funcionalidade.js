@@ -84,7 +84,7 @@ async function initLogin() {
 }
 
 // App state
-let state = { equipamentos: [], categorias: [], emprestimos: [], selectedEquipId: null, selectedEmprestimoId: null };
+let state = { equipamentos: [], categorias: [], emprestimos: [], selectedEquipId: null, selectedEmprestimoId: null, editingEquipId: null };
 
 function requireAuthOrRedirect() {
   if (!getToken()) location.href = '/';
@@ -113,6 +113,7 @@ function escapeHtml(str) {
 
 function renderEquipTable() {
   const tbody = $('#tblEquip tbody');
+  const admin = (getUser()?.perfil === 'ADMIN');
   if (!tbody) return;
   tbody.innerHTML = '';
 
@@ -132,12 +133,20 @@ function renderEquipTable() {
       <td>${escapeHtml(e.patrimonio || '—')}</td>
       <td>${e.quantidade_disponivel}/${e.quantidade_total}</td>
       <td>${escapeHtml(e.status)}</td>
-      <td><button class="btn btn-ghost" data-eid="${e.id}">Ver</button></td>
+      <td>
+        <button class="btn btn-ghost" data-eid="${e.id}">Ver</button>
+        ${admin ? `<button class="btn btn-ghost" data-edit-eid="${e.id}">Alterar</button>` : ''}
+      </td>
     `;
     tbody.appendChild(tr);
   }
 
   tbody.querySelectorAll('[data-eid]').forEach(el => el.addEventListener('click', () => selectEquip(Number(el.dataset.eid))));
+
+  tbody.querySelectorAll('[data-edit-eid]').forEach(el => el.addEventListener('click', (ev) => {
+    ev.stopPropagation();
+    openEditEquip(Number(el.dataset.editEid));
+  }));
 }
 
 function renderEquipDetail(e) {
@@ -211,6 +220,33 @@ async function selectEquip(id) {
   renderEquipDetail(e);
 }
 
+async function openEditEquip(id) {
+  const user = getUser();
+  if (user?.perfil !== 'ADMIN') return;
+
+  setMsg($('#editEquipMsg'), '');
+  try {
+    const e = await apiFetch(`/api/equipamentos/${id}`);
+    state.editingEquipId = id;
+
+    $('#editNome').value = e.nome || '';
+    $('#editPatrimonio').value = e.patrimonio || '';
+    $('#editLocalizacao').value = e.localizacao || '';
+    $('#editStatus').value = e.status || 'DISPONIVEL';
+    $('#editQtdTotal').value = e.quantidade_total ?? 1;
+    $('#editQtdDisp').value = e.quantidade_disponivel ?? 1;
+    $('#editDescricao').value = e.descricao || '';
+
+    // garante categorias no select
+    fillCategoriaSelect();
+    $('#selCatEdit').value = (e.categoria_id ?? '').toString();
+
+    openModal('#modalEditEquip', true);
+  } catch (err) {
+    alert(err.message);
+  }
+}
+
 function renderEmprestimos() {
   const tbody = $('#tblEmp tbody');
   tbody.innerHTML = '';
@@ -276,15 +312,18 @@ function renderCategorias() {
 }
 
 function fillCategoriaSelect() {
-  const sel = $('#selCat');
-  if (!sel) return;
-  sel.innerHTML = `<option value="">—</option>`;
-  state.categorias.forEach(c => {
-    const o = document.createElement('option');
-    o.value = c.id;
-    o.textContent = c.nome;
-    sel.appendChild(o);
-  });
+  const selects = [$('#selCat'), $('#selCatEdit')].filter(Boolean);
+  if (!selects.length) return;
+
+  for (const sel of selects) {
+    sel.innerHTML = `<option value="">—</option>`;
+    state.categorias.forEach(c => {
+      const o = document.createElement('option');
+      o.value = c.id;
+      o.textContent = c.nome;
+      sel.appendChild(o);
+    });
+  }
 }
 
 async function loadCategorias() {
@@ -518,6 +557,7 @@ async function initApp() {
   });
   $('#closeModalEquip')?.addEventListener('click', () => openModal('#modalEquip', false));
   $('#closeModalImgs')?.addEventListener('click', () => openModal('#modalAddImgs', false));
+  $('#closeModalEditEquip')?.addEventListener('click', () => openModal('#modalEditEquip', false));
 
   $('#frmNovoEquip')?.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -542,6 +582,42 @@ async function initApp() {
       await selectEquip(out.id);
     } catch (err) {
       setMsg($('#equipMsg'), err.message, 'err');
+    }
+  });
+
+
+  $('#frmEditEquip')?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    setMsg($('#editEquipMsg'), 'Salvando...');
+    try {
+      const id = state.editingEquipId;
+      if (!id) throw new Error('Nenhum equipamento selecionado para edição');
+
+      const nome = ($('#editNome').value || '').trim();
+      const categoriaRaw = ($('#selCatEdit').value || '').trim();
+      const categoria_id = categoriaRaw ? Number(categoriaRaw) : null;
+      const patrimonio = $('#editPatrimonio').value ?? '';
+      const localizacao = $('#editLocalizacao').value ?? '';
+      const status = $('#editStatus').value || 'DISPONIVEL';
+      const quantidade_total = Number($('#editQtdTotal').value || 1);
+      const quantidade_disponivel = Number($('#editQtdDisp').value || 0);
+      const descricao = $('#editDescricao').value ?? '';
+
+      if (!nome) throw new Error('Informe o nome');
+      if (!categoria_id) throw new Error('Informe a categoria');
+
+      await apiFetch(`/api/equipamentos/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nome, categoria_id, patrimonio, localizacao, status, quantidade_total, quantidade_disponivel, descricao })
+      });
+
+      setMsg($('#editEquipMsg'), 'Alterações salvas.', 'ok');
+      openModal('#modalEditEquip', false);
+      await refreshAll();
+      await selectEquip(id);
+    } catch (err) {
+      setMsg($('#editEquipMsg'), err.message, 'err');
     }
   });
 

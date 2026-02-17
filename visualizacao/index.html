@@ -270,6 +270,68 @@
         </div>
     </div>
 
+
+    <!-- Modal editar equipamento -->
+    <div class="modal" id="modalEditEquip">
+        <div class="modal-card">
+            <div class="modal-head">
+                <div class="h2">Alterar equipamento</div>
+                <button class="btn btn-ghost" id="closeModalEditEquip">Fechar</button>
+            </div>
+
+            <form id="frmEditEquip" class="form">
+                <div class="row">
+                    <div class="field">
+                        <label>Nome</label>
+                        <input class="input" name="nome" id="editNome" required />
+                    </div>
+                    <div class="field">
+                        <label>Categoria</label>
+                        <select class="input" name="categoria_id" id="selCatEdit" required></select>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="field">
+                        <label>Patrimônio</label>
+                        <input class="input" name="patrimonio" id="editPatrimonio" />
+                    </div>
+                    <div class="field">
+                        <label>Localização</label>
+                        <input class="input" name="localizacao" id="editLocalizacao" />
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="field">
+                        <label>Status</label>
+                        <select class="input" name="status" id="editStatus" required>
+                            <option value="DISPONIVEL">DISPONIVEL</option>
+                            <option value="EMPRESTADO">EMPRESTADO</option>
+                            <option value="MANUTENCAO">MANUTENCAO</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label>Qtd total</label>
+                        <input class="input" type="number" min="1" name="quantidade_total" id="editQtdTotal" required />
+                    </div>
+                    <div class="field">
+                        <label>Qtd disponível</label>
+                        <input class="input" type="number" min="0" name="quantidade_disponivel" id="editQtdDisp" required />
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label>Descrição</label>
+                    <textarea class="input" name="descricao" id="editDescricao" rows="3" placeholder="Detalhes do equipamento..."></textarea>
+                </div>
+
+                <button class="btn" type="submit">Salvar alterações</button>
+                <div class="msg" id="editEquipMsg"></div>
+            </form>
+        </div>
+    </div>
+
     <!-- Modal adicionar imagens -->
     <div class="modal" id="modalAddImgs">
         <div class="modal-card">
