@@ -1,0 +1,55 @@
+[33mcommit 5922abddf94beb311c16a8afc4e93475e05e80f8[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: largatixa13br <largatixa13br@gmail.com>
+Date:   Tue Feb 17 00:50:55 2026 -0300
+
+    Revert "mensagem"
+    
+    This reverts commit 53240e5c9291d83dec7acbfa554a3f80bbc600d5.
+
+[33mcommit 53240e5c9291d83dec7acbfa554a3f80bbc600d5[m
+Author: largatixa13br <largatixa13br@gmail.com>
+Date:   Tue Feb 17 00:39:24 2026 -0300
+
+    mensagem
+
+[33mcommit f2ad35edd25d0deb3ec991e7f4c36f109441a0b6[m
+Author: largatixa13br <largatixa13br@gmail.com>
+Date:   Mon Feb 16 23:02:47 2026 -0300
+
+    alteração
+
+[33mcommit 38c7d6fe900aa8aaacdaaf0d0025bfb1b562a88a[m
+Author: largatixa13br <largatixa13br@gmail.com>
+Date:   Mon Feb 16 22:49:19 2026 -0300
+
+    Alteração
+
+[33mcommit eb4bd16c6953c89926733470e69c229d7d47f512[m
+Author: largatixa13br <largatixa13br@gmail.com>
+Date:   Mon Feb 16 18:17:55 2026 -0300
+
+    Alteração
+
+[33mcommit 47b00d74106077c0ad0d47b4d47b6681ba8b54ae[m
+Author: largatixa13br <largatixa13br@gmail.com>
+Date:   Mon Feb 16 18:13:55 2026 -0300
+
+    alteração
+
+[33mcommit da695279411dbcf24e677ce4673507e3640cf905[m
+Author: largatixa13br <largatixa13br@gmail.com>
+Date:   Mon Feb 16 18:01:56 2026 -0300
+
+    Projeto
+
+[33mcommit f86daec42fb5388611a468693295947e9109a253[m
+Author: largatixa13br <largatixa13br@gmail.com>
+Date:   Mon Feb 16 17:52:55 2026 -0300
+
+    Update README.md
+
+[33mcommit 17e1409efd1d821375ba04641f1b60876cc23c59[m
+Author: largatixa13br <largatixa13br@gmail.com>
+Date:   Mon Feb 16 17:46:44 2026 -0300
+
+    Initial commit
