@@ -1,277 +1,294 @@
 <!doctype html>
 <html lang="pt-br">
+
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Empréstimos de Equipamentos</title>
-  <link rel="stylesheet" href="./Css/Estilo.css" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Empréstimos de Equipamentos</title>
+    <link rel="stylesheet" href="./Css/Estilo.css" />
 </head>
+
 <body>
-  <header class="topbar">
-    <div class="brand">
-      <img src="./imagens/Logo.png" alt="Logo" class="logo" onerror="this.style.display='none'"/>
-      <div>
-        <div class="title">Empréstimos</div>
-        <div class="subtitle">Sistema de equipamentos • MVC</div>
-      </div>
-    </div>
-
-    <div class="userbox">
-      <div class="chip" id="userChip">—</div>
-      <button class="btn btn-ghost" id="btnLogout">Sair</button>
-    </div>
-  </header>
-
-  <main class="container">
-    <section class="toolbar">
-      <div class="tabs">
-        <button class="tab active" data-tab="equipamentos">Equipamentos</button>
-        <button class="tab" data-tab="emprestimos">Empréstimos</button>
-        <button class="tab" data-tab="categorias" id="tabCategorias" style="display:none">Categorias</button>
-        <button class="tab" data-tab="usuarios" id="tabUsuarios" style="display:none">Usuários</button>
-      </div>
-
-      <div class="actions">
-        <input class="input" id="search" placeholder="Pesquisar (nome, patrimônio, categoria)..." />
-        <button class="btn" id="btnNovoEquip" style="display:none">+ Equipamento</button>
-        <button class="btn" id="btnNovaCategoria" style="display:none">+ Categoria</button>
-      </div>
-    </section>
-
-    <section class="panel" id="panelEquipamentos">
-      <div class="ticker card" id="borrowTicker" style="margin-bottom:14px; display:none">
-        <div class="card-title">Equipamentos emprestados (destaques)</div>
-        <div class="ticker-line">
-          <div class="ticker-item" id="borrowTickerItem">—</div>
-        </div>
-      </div>
-      <div class="grid2">
-        <div class="card">
-          <div class="card-title">Lista de equipamentos</div>
-          <div class="table-wrap">
-            <table class="table" id="tblEquip">
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Nome</th>
-                  <th>Categoria</th>
-                  <th>Patrimônio</th>
-                  <th>Disponível</th>
-                  <th>Status</th>
-                  <th>Ações</th>
-                </tr>
-              </thead>
-              <tbody></tbody>
-            </table>
-          </div>
+    <header class="topbar">
+        <div class="brand">
+            <img src="./imagens/Logo.png" alt="Logo" class="logo" onerror="this.style.display='none'" />
+            <div>
+                <div class="title">Empréstimos</div>
+                <div class="subtitle">Sistema de equipamentos • MVC</div>
+            </div>
         </div>
 
-        <div class="card">
-          <div class="card-title">Detalhes / Solicitar empréstimo</div>
-          <div class="muted" id="equipHint">Selecione um equipamento na lista para ver detalhes.</div>
+        <div class="userbox">
+            <div class="chip" id="userChip">—</div>
+            <button class="btn btn-ghost" id="btnLogout">Sair</button>
+        </div>
+    </header>
 
-          <div id="equipDetalhe" style="display:none">
-            <div class="equip-head">
-              <div>
-                <div class="h2" id="equipNome">—</div>
-                <div class="muted" id="equipMeta">—</div>
-              </div>
-              <div class="badges">
-                <span class="badge" id="equipStatus">—</span>
-                <span class="badge badge-soft" id="equipDisp">—</span>
-              </div>
+    <main class="container">
+        <section class="toolbar">
+            <div class="tabs">
+                <button class="tab active" data-tab="equipamentos">Equipamentos</button>
+                <button class="tab" data-tab="emprestimos">Empréstimos</button>
+                <button class="tab" data-tab="categorias" id="tabCategorias" style="display:none">Categorias</button>
+                <button class="tab" data-tab="usuarios" id="tabUsuarios" style="display:none">Usuários</button>
             </div>
 
-            <div class="equip-desc" id="equipDesc"></div>
+            <div class="actions">
+                <input class="input" id="search" placeholder="Pesquisar (nome, patrimônio, categoria)..." />
+                <button class="btn" id="btnNovoEquip" style="display:none">+ Equipamento</button>
+                <button class="btn" id="btnNovaCategoria" style="display:none">+ Categoria</button>
+            </div>
+        </section>
 
-            <div class="gallery" id="equipGallery"></div>
+        <section class="panel" id="panelEquipamentos">
+            <div class="ticker card" id="borrowTicker" style="margin-bottom:14px; display:none">
+                <div class="card-title">Equipamentos emprestados (destaques)</div>
+                <div class="ticker-line">
+                    <div class="ticker-item" id="borrowTickerItem">—</div>
+                </div>
+            </div>
+            <div class="grid2">
+                <div class="card">
+                    <div class="card-title">Lista de equipamentos</div>
+                    <div class="table-wrap">
+                        <table class="table" id="tblEquip">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nome</th>
+                                    <th>Categoria</th>
+                                    <th>Patrimônio</th>
+                                    <th>Disponível</th>
+                                    <th>Status</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
 
-            <hr class="sep"/>
+                <div class="card">
+                    <div class="card-title">Detalhes / Solicitar empréstimo</div>
+                    <div class="muted" id="equipHint">Selecione um equipamento na lista para ver detalhes.</div>
 
-            <form id="frmEmprestimo" class="form">
-              <div class="row">
-                <div class="field">
-                  <label>Nome do solicitante</label>
-                  <input class="input" id="empNomeSolic" placeholder="Ex.: João da Silva" required />
-                </div>
-                <div class="field">
-                  <label>Celular</label>
-                  <input class="input" id="empCelular" placeholder="(DDD) 9XXXX-XXXX" />
-                </div>
-              </div>
+                    <div id="equipDetalhe" style="display:none">
+                        <div class="equip-head">
+                            <div>
+                                <div class="h2" id="equipNome">—</div>
+                                <div class="muted" id="equipMeta">—</div>
+                            </div>
+                            <div class="badges">
+                                <span class="badge" id="equipStatus">—</span>
+                                <span class="badge badge-soft" id="equipDisp">—</span>
+                            </div>
+                        </div>
 
-              <div class="row">
-                <div class="field">
-                  <label>Quantidade</label>
-                  <input class="input" type="number" min="1" value="1" id="empQuantidade" required />
-                </div>
-                <div class="field">
-                  <label>Data da retirada</label>
-                  <input class="input" type="date" id="empDataRetirada" />
-                </div>
-              </div>
+                        <div class="equip-desc" id="equipDesc"></div>
 
-              <div class="row">
-                <div class="field">
-                  <label>Previsão devolução</label>
-                  <input class="input" type="date" id="empPrevDevol" />
+                        <div class="gallery" id="equipGallery"></div>
+
+                        <hr class="sep" />
+
+                        <form id="frmEmprestimo" class="form">
+                            <div class="row">
+                                <div class="field">
+                                    <label>Nome do solicitante</label>
+                                    <input class="input" id="empNomeSolic" placeholder="Ex.: João da Silva" required />
+                                </div>
+                                <div class="field">
+                                    <label>Celular</label>
+                                    <input class="input" id="empCelular" placeholder="(DDD) 9XXXX-XXXX" />
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="field">
+                                    <label>Quantidade</label>
+                                    <input class="input" type="number" min="1" value="1" id="empQuantidade" required />
+                                </div>
+                                <div class="field">
+                                    <label>Data da retirada</label>
+                                    <input class="input" type="date" id="empDataRetirada" />
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="field">
+                                    <label>Previsão devolução</label>
+                                    <input class="input" type="date" id="empPrevDevol" />
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label>Observação</label>
+                                <input class="input" id="empObs" placeholder="Opcional" />
+                            </div>
+                            <div class="row" style="gap:10px">
+                                <button class="btn" type="submit" id="btnSolicitarEmp">Solicitar empréstimo</button>
+                                <button class="btn btn-ghost" type="button" id="btnAlterarEmp" disabled>Alterar dados</button>
+                            </div>
+                            <div class="msg" id="empMsg"></div>
+                        </form>
+
+                        <div id="adminEquipActions" style="display:none; margin-top:12px">
+                            <button class="btn" id="btnToggleEquip" type="button">Ativar/Desativar produto</button>
+                            <button class="btn btn-ghost" id="btnAddImgs">Adicionar imagens</button>
+                            <button class="btn btn-ghost" id="btnDelEquip">Sair</button>
+                        </div>
+                    </div>
                 </div>
-              </div>
-              <div class="field">
-                <label>Observação</label>
-                <input class="input" id="empObs" placeholder="Opcional" />
-              </div>
-              <div class="row" style="gap:10px">
-                <button class="btn" type="submit" id="btnSolicitarEmp">Solicitar empréstimo</button>
-                <button class="btn btn-ghost" type="button" id="btnAlterarEmp" disabled>Alterar dados</button>
-              </div>
-              <div class="msg" id="empMsg"></div>
+            </div>
+        </section>
+
+        <section class="panel" id="panelEmprestimos" style="display:none">
+            <div class="card">
+                <div class="card-title">Meus empréstimos</div>
+                <div class="table-wrap">
+                    <table class="table" id="tblEmp">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Equipamento</th>
+                                <th>Qtd</th>
+                                <th>Nome do solicitante</th>
+                                <th>Celular</th>
+                                <th>Data do empréstimo</th>
+                                <th>Data da devolução</th>
+                                <th>Status</th>
+                                <th>Ação</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+                <div class="msg" id="empListMsg"></div>
+            </div>
+        </section>
+
+        <section class="panel" id="panelCategorias" style="display:none">
+            <div class="card">
+                <div class="card-title">Categorias</div>
+                <div class="row">
+                    <input class="input" id="catNome" placeholder="Nome da categoria" />
+                    <button class="btn" id="btnSalvarCategoria">Salvar</button>
+                </div>
+                <div class="table-wrap">
+                    <table class="table" id="tblCat">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nome</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+                <div class="msg" id="catMsg"></div>
+            </div>
+        </section>
+
+        <section class="panel" id="panelUsuarios" style="display:none">
+            <div class="card">
+                <div class="card-title">Usuários (admin)</div>
+                <div class="table-wrap">
+                    <table class="table" id="tblUsers">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nome</th>
+                                <th>Email</th>
+                                <th>Perfil</th>
+                                <th>Ativo</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+                <div class="msg" id="usrMsg"></div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Modal novo equipamento -->
+    <div class="modal" id="modalEquip">
+        <div class="modal-card">
+            <div class="modal-head">
+                <div class="h2">Novo equipamento</div>
+                <button class="btn btn-ghost" id="closeModalEquip">Fechar</button>
+            </div>
+
+            <form id="frmNovoEquip" class="form">
+                <div class="row">
+                    <div class="field">
+                        <label>Nome</label>
+                        <input class="input" name="nome" required />
+                    </div>
+                    <div class="field">
+                        <label>Categoria</label>
+                        <select class="input" name="categoria_id" id="selCat" required> </select>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="field">
+                        <label>Patrimônio</label>
+                        <input class="input" name="patrimonio" placeholder="Digite o patrimonio do equipamento" required />
+                    </div>
+                    <div class="field">
+                        <label>Localização</label>
+                        <input class="input" name="localizacao" placeholder="Localização do Patrimonio" required />
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="field">
+                        <label>Qtd total</label>
+                        <input class="input" type="number" min="1" name="quantidade_total" value="1" required />
+                    </div>
+                    <div class="field">
+                        <label>Qtd disponível</label>
+                        <input class="input" type="number" min="0" name="quantidade_disponivel" value="1" required />
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label>Descrição</label>
+                    <textarea class="input" name="descricao" rows="3" placeholder="Detalhes do equipamento..."></textarea>
+                </div>
+
+                <div class="field">
+                    <label>Imagens (até 8)</label>
+                    <input class="input" type="file" name="imagens" id="equipImgs" accept="image/*" multiple />
+                    <div class="muted">Dica: você pode arrastar e soltar arquivos aqui (navegadores compatíveis).</div>
+                </div>
+
+                <button class="btn" type="submit">Cadastrar</button>
+                <div class="msg" id="equipMsg"></div>
             </form>
+        </div>
+    </div>
 
-            <div id="adminEquipActions" style="display:none; margin-top:12px">
-              <button class="btn" id="btnToggleEquip" type="button">Ativar/Desativar produto</button>
-              <button class="btn btn-ghost" id="btnAddImgs">Adicionar imagens</button>
-              <button class="btn btn-ghost" id="btnDelEquip">Sair</button>
+    <!-- Modal adicionar imagens -->
+    <div class="modal" id="modalAddImgs">
+        <div class="modal-card">
+            <div class="modal-head">
+                <div class="h2">Adicionar imagens</div>
+                <button class="btn btn-ghost" id="closeModalImgs">Fechar</button>
             </div>
-          </div>
+            <form id="frmAddImgs" class="form">
+                <div class="field">
+                    <label>Selecione imagens (até 8)</label>
+                    <input class="input" type="file" name="imagens" id="addImgsInput" accept="image/*" multiple />
+                </div>
+                <button class="btn" type="submit">Enviar</button>
+                <div class="msg" id="addImgsMsg"></div>
+            </form>
         </div>
-      </div>
-    </section>
-
-    <section class="panel" id="panelEmprestimos" style="display:none">
-      <div class="card">
-        <div class="card-title">Meus empréstimos</div>
-        <div class="table-wrap">
-          <table class="table" id="tblEmp">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Equipamento</th>
-                <th>Qtd</th>
-                <th>Nome do solicitante</th>
-                <th>Celular</th>
-                <th>Data do empréstimo</th>
-                <th>Data da devolução</th>
-                <th>Status</th>
-                <th>Ação</th>
-              </tr>
-            </thead>
-            <tbody></tbody>
-          </table>
-        </div>
-        <div class="msg" id="empListMsg"></div>
-      </div>
-    </section>
-
-    <section class="panel" id="panelCategorias" style="display:none">
-      <div class="card">
-        <div class="card-title">Categorias</div>
-        <div class="row">
-          <input class="input" id="catNome" placeholder="Nome da categoria" />
-          <button class="btn" id="btnSalvarCategoria">Salvar</button>
-        </div>
-        <div class="table-wrap">
-          <table class="table" id="tblCat">
-            <thead><tr><th>ID</th><th>Nome</th><th></th></tr></thead>
-            <tbody></tbody>
-          </table>
-        </div>
-        <div class="msg" id="catMsg"></div>
-      </div>
-    </section>
-
-    <section class="panel" id="panelUsuarios" style="display:none">
-      <div class="card">
-        <div class="card-title">Usuários (admin)</div>
-        <div class="table-wrap">
-          <table class="table" id="tblUsers">
-            <thead><tr><th>ID</th><th>Nome</th><th>Email</th><th>Perfil</th><th>Ativo</th></tr></thead>
-            <tbody></tbody>
-          </table>
-        </div>
-        <div class="msg" id="usrMsg"></div>
-      </div>
-    </section>
-
-  </main>
-
-  <!-- Modal novo equipamento -->
-  <div class="modal" id="modalEquip">
-    <div class="modal-card">
-      <div class="modal-head">
-        <div class="h2">Novo equipamento</div>
-        <button class="btn btn-ghost" id="closeModalEquip">Fechar</button>
-      </div>
-
-      <form id="frmNovoEquip" class="form">
-        <div class="row">
-          <div class="field">
-            <label>Nome</label>
-            <input class="input" name="nome" required />
-          </div>
-          <div class="field">
-            <label>Categoria</label>
-            <select class="input" name="categoria_id" id="selCat"></select>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="field">
-            <label>Patrimônio</label>
-            <input class="input" name="patrimonio" placeholder="Opcional" />
-          </div>
-          <div class="field">
-            <label>Localização</label>
-            <input class="input" name="localizacao" placeholder="Opcional" />
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="field">
-            <label>Qtd total</label>
-            <input class="input" type="number" min="1" name="quantidade_total" value="1" required />
-          </div>
-          <div class="field">
-            <label>Qtd disponível</label>
-            <input class="input" type="number" min="0" name="quantidade_disponivel" value="1" required />
-          </div>
-        </div>
-
-        <div class="field">
-          <label>Descrição</label>
-          <textarea class="input" name="descricao" rows="3" placeholder="Detalhes do equipamento..."></textarea>
-        </div>
-
-        <div class="field">
-          <label>Imagens (até 8)</label>
-          <input class="input" type="file" name="imagens" id="equipImgs" accept="image/*" multiple />
-          <div class="muted">Dica: você pode arrastar e soltar arquivos aqui (navegadores compatíveis).</div>
-        </div>
-
-        <button class="btn" type="submit">Cadastrar</button>
-        <div class="msg" id="equipMsg"></div>
-      </form>
     </div>
-  </div>
 
-  <!-- Modal adicionar imagens -->
-  <div class="modal" id="modalAddImgs">
-    <div class="modal-card">
-      <div class="modal-head">
-        <div class="h2">Adicionar imagens</div>
-        <button class="btn btn-ghost" id="closeModalImgs">Fechar</button>
-      </div>
-      <form id="frmAddImgs" class="form">
-        <div class="field">
-          <label>Selecione imagens (até 8)</label>
-          <input class="input" type="file" name="imagens" id="addImgsInput" accept="image/*" multiple />
-        </div>
-        <button class="btn" type="submit">Enviar</button>
-        <div class="msg" id="addImgsMsg"></div>
-      </form>
-    </div>
-  </div>
-
-  <script src="./JavaScript/Funcionalidade.js"></script>
+    <script src="./JavaScript/Funcionalidade.js"></script>
 </body>
+
 </html>
