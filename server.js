@@ -43,6 +43,3 @@ app.use((req, res) => res.status(404).json({ error: 'Rota não encontrada' }));
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => console.log(`Servidor rodando em http://localhost:${PORT}`));
-
-
-
